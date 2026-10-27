@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杨璧霏-个人作品集</title>
+    <style>
+        /* 清除所有边距，让 PDF 最大化 */
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: -apple-system, sans-serif; }
+        
+        /* 顶部极简导航条 */
+        .nav { height: 40px; background: #333; display: flex; justify-content: center; align-items: center; gap: 20px; }
+        .nav a { color: #ccc; text-decoration: none; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .nav a:hover { color: #fff; }
+        .nav a.active { color: #fff; font-weight: bold; border-bottom: 2px solid #fff; padding-bottom: 2px; }
+
+        /* PDF 全屏容器 */
+        .pdf-container { width: 100%; height: calc(100% - 40px); }
+        iframe { width: 100%; height: 100%; border: none; display: none; background: #525659; }
+        iframe.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- 极简导航（简历排在第一位） -->
+    <div class="nav">
+        <a id="tab0" class="active" onclick="showPdf(0)">杨璧霏-简历</a>
+        <a id="tab1" onclick="showPdf(1)">作品集1：马应龙模拟尽调报告</a>
+        <a id="tab2" onclick="showPdf(2)">作品集2：储能产业链研究</a>
+    </div>
+
+    <!-- 全屏 PDF 阅读区（默认显示简历） -->
+    <div class="pdf-container">
+        <!-- 简历 PDF，默认激活 -->
+        <iframe id="pdf0" src="resume.pdf" class="active"></iframe>
+        
+        <iframe id="pdf1" src="work1.pdf"></iframe>
+        <iframe id="pdf2" src="work2.pdf"></iframe>
+    </div>
+
+    <script>
+        function showPdf(num) {
+            // 隐藏所有 PDF，取消所有按钮高亮
+            document.getElementById('pdf0').classList.remove('active');
+            document.getElementById('pdf1').classList.remove('active');
+            document.getElementById('pdf2').classList.remove('active');
+            document.getElementById('tab0').classList.remove('active');
+            document.getElementById('tab1').classList.remove('active');
+            document.getElementById('tab2').classList.remove('active');
+
+            // 显示对应 PDF 和高亮对应按钮
+            if (num === 0) {
+                document.getElementById('pdf0').classList.add('active');
+                document.getElementById('tab0').classList.add('active');
+            } else if (num === 1) {
+                document.getElementById('pdf1').classList.add('active');
+                document.getElementById('tab1').classList.add('active');
+            } else {
+                document.getElementById('pdf2').classList.add('active');
+                document.getElementById('tab2').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
