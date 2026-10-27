@@ -15,7 +15,9 @@
 
         /* PDF 全屏容器 */
         .pdf-container { width: 100%; height: calc(100% - 45px); }
-        iframe { width: 100%; height: 100%; border: none; display: none; background: #525659; }
+        
+        /* 去掉参数，回归最原始的清晰模式 */
+        iframe { width: 100%; height: 100%; border: none; display: none; }
         iframe.active { display: block; }
     </style>
 </head>
@@ -28,26 +30,23 @@
         <a id="tab2" onclick="showPdf(2)">作品集2：储能研究</a>
     </div>
 
-    <!-- PDF 阅读区 -->
-    <!-- 注意看这里，加了 #view=FitH 强制按宽度显示，并且隐藏了工具栏 -->
+    <!-- PDF 阅读区（去掉了之前加上的 #view 参数） -->
     <div class="pdf-container">
-        <iframe id="pdf0" src="resume.pdf#view=FitH&toolbar=0" class="active"></iframe>
-        <iframe id="pdf1" src="work1.pdf#view=FitH&toolbar=0"></iframe>
-        <iframe id="pdf2" src="work2.pdf#view=FitH&toolbar=0"></iframe>
+        <iframe id="pdf0" src="resume.pdf" class="active"></iframe>
+        <iframe id="pdf1" src="work1.pdf"></iframe>
+        <iframe id="pdf2" src="work2.pdf"></iframe>
     </div>
 
     <script>
         function showPdf(num) {
             let fileName = "";
-            if (num === 0) fileName = "resume.pdf#view=FitH&toolbar=0";
-            if (num === 1) fileName = "work1.pdf#view=FitH&toolbar=0";
-            if (num === 2) fileName = "work2.pdf#view=FitH&toolbar=0";
+            if (num === 0) fileName = "resume.pdf";
+            if (num === 1) fileName = "work1.pdf";
+            if (num === 2) fileName = "work2.pdf";
 
-            // 手机端：直接全屏打开
+            // 手机端：直接全屏打开（完美）
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                // 手机端不需要加工具栏参数，直接用最原始的文件名
-                let rawFileName = fileName.split('#')[0]; 
-                window.open(rawFileName, "_blank");
+                window.open(fileName, "_blank");
                 return; 
             }
 
